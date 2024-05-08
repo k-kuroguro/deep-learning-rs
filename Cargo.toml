@@ -1,0 +1,11 @@
+[package]
+name = "deep-learning-rs"
+version = "0.1.0"
+edition = "2021"
+rust-version = "1.77"
+authors = ["k_kuroguro"]
+license = "MIT"
+
+[dependencies]
+ndarray = "0.15.6"
+plotters = "0.3.5"
