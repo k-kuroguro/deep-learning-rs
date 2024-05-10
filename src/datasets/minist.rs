@@ -40,6 +40,8 @@ pub struct MINIST {
    pub test_labels: Vec<u8>,
 }
 
+// TODO: Improve error
+
 impl MINIST {
    pub fn new<P: AsRef<Path>>(root: &P, download: bool) -> Result<MINIST> {
       let root = root.as_ref();
