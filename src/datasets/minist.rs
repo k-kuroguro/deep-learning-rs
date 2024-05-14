@@ -6,6 +6,9 @@ use std::io;
 use std::path::Path;
 use tokio::runtime::Runtime;
 
+#[cfg(feature = "image")]
+use image::{GrayImage, Luma};
+
 const MIRRORS: [&str; 2] = [
    "http://yann.lecun.com/exdb/mnist/",
    "https://ossci-datasets.s3.amazonaws.com/mnist/",
@@ -31,6 +34,21 @@ pub struct Image {
    pub rows: u32,
    pub cols: u32,
    pub data: Vec<u8>,
+}
+
+#[cfg(feature = "image")]
+impl Image {
+   pub fn to_image(&self) -> GrayImage {
+      let mut img = GrayImage::new(self.rows, self.cols);
+      for (i, pixel) in self.data.iter().enumerate() {
+         img.put_pixel(
+            (i % self.cols as usize) as u32,
+            (i / self.cols as usize) as u32,
+            Luma([*pixel]),
+         );
+      }
+      img
+   }
 }
 
 pub struct MINIST {
