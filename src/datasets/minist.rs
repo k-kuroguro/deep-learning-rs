@@ -1,13 +1,11 @@
 use super::utils::{check_exists, download_with_pb, extract_gz};
 use anyhow::{anyhow, Result};
+use image::{GrayImage, Luma};
 use reqwest::Client;
 use std::fs;
 use std::io;
 use std::path::Path;
 use tokio::runtime::Runtime;
-
-#[cfg(feature = "image")]
-use image::{GrayImage, Luma};
 
 const MIRRORS: [&str; 2] = [
    "http://yann.lecun.com/exdb/mnist/",
@@ -36,7 +34,6 @@ pub struct Image {
    pub data: Vec<u8>,
 }
 
-#[cfg(feature = "image")]
 impl Image {
    pub fn to_image(&self) -> GrayImage {
       let mut img = GrayImage::new(self.rows, self.cols);

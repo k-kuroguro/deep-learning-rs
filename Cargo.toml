@@ -6,16 +6,12 @@ rust-version = "1.77"
 authors = ["k_kuroguro"]
 license = "MIT"
 
-[features]
-default = []
-image = ["dep:image"]
-
 [dependencies]
 anyhow = "1.0.83"
 async-std = "1.12.0"
 flate2 = "1.0.30"
 futures-util = "0.3.30"
-image = { version = "0.25.1", optional = true }
+image = "0.25.1"
 indicatif = "0.17.8"
 ndarray = "0.15.6"
 plotters = "0.3.5"
