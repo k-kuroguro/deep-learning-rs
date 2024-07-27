@@ -1,3 +1,3 @@
-pub mod minist;
+pub mod mnist;
 
 mod utils;

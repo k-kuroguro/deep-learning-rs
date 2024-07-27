@@ -48,7 +48,7 @@ impl Image {
    }
 }
 
-pub struct MINIST {
+pub struct MNIST {
    pub train_images: Vec<Image>,
    pub train_labels: Vec<u8>,
    pub test_images: Vec<Image>,
@@ -57,33 +57,33 @@ pub struct MINIST {
 
 // TODO: Improve error
 
-impl MINIST {
-   pub fn new<P: AsRef<Path>>(root: &P, download: bool) -> Result<MINIST> {
+impl MNIST {
+   pub fn new<P: AsRef<Path>>(root: &P, download: bool) -> Result<MNIST> {
       let root = root.as_ref();
       if download {
-         MINIST::download(root)?;
+         MNIST::download(root)?;
       }
 
-      MINIST::load_data(root).map_err(|e| match e.downcast_ref::<io::Error>() {
+      MNIST::load_data(root).map_err(|e| match e.downcast_ref::<io::Error>() {
          Some(_) => anyhow!(
-            "MINIST dataset files were not found in \"{}\".",
+            "MNIST dataset files were not found in \"{}\".",
             root.to_str().unwrap_or("")
          ),
          None => e,
       })
    }
 
-   fn load_data(root: &Path) -> Result<MINIST> {
+   fn load_data(root: &Path) -> Result<MNIST> {
       let train_images_file = fs::read(root.join(RAW_FILENAMES[0]))?;
       let train_labels_file = fs::read(root.join(RAW_FILENAMES[1]))?;
       let test_images_file = fs::read(root.join(RAW_FILENAMES[2]))?;
       let test_labels_file = fs::read(root.join(RAW_FILENAMES[3]))?;
 
-      Ok(MINIST {
-         train_images: MINIST::parse_images(&train_images_file)?,
-         train_labels: MINIST::parse_labels(&train_labels_file)?,
-         test_images: MINIST::parse_images(&test_images_file)?,
-         test_labels: MINIST::parse_labels(&test_labels_file)?,
+      Ok(MNIST {
+         train_images: MNIST::parse_images(&train_images_file)?,
+         train_labels: MNIST::parse_labels(&train_labels_file)?,
+         test_images: MNIST::parse_images(&test_images_file)?,
+         test_labels: MNIST::parse_labels(&test_labels_file)?,
       })
    }
 
